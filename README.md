@@ -1,10 +1,10 @@
 2013 Lake Ontario CSMI Stable Isotope Dataset
 ================
 
-# This is a repository for analyzing stable isotope data from samples collected during the 2013 Lake Ontario Cooperative Science and Monitoring Initiative (CSMI)
+## This data was collected collaboratively from multiple agencies including:
 
-### This data was collected collaboratively from multiple agencies including:
-
-- USGS
-- EPA
-- OMNRF
+- [United States Geological Survey](https://www.usgs.gov/)
+  ![](https://www.epa.gov/system/files/styles/medium/private/images/2021-12/375x250_epa_seal_noring.png?itok=zpXlVA0X)
+- [Environmental Protection Agency](https://www.epa.gov/)
+- [Ontario Ministry of Natural Resources and
+  Forestry](https://www.ontario.ca/page/ministry-natural-resources-and-forestry)
