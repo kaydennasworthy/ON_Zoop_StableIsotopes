@@ -17,8 +17,8 @@ library(rnaturalearthdata)
 # write.csv(data, file = "LOBS Isotope Dataset 20210113.csv")
 
 ##### Load in Data ####
-setwd("C:/Users/kcn33/Box/Ontario Isotopes")
-data = read.csv(file = "LOBS Isotope Dataset 20210113.csv")
+setwd("C:/Users/kcn33/github/ON_Zoop_StableIsotopes/")
+data = read.csv(file = "raw-data/LOBS Isotope Dataset 20210113.csv")
 data$X = data$X/2
 
 summary(data)
