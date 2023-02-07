@@ -12,3 +12,7 @@
 - [Ontario Ministry of Natural Resources and
   Forestry](https://www.ontario.ca/page/ministry-natural-resources-and-forestry)
   <img src="https://www.fws.gov/sites/default/files/styles/large/public/2020-08/mnrflogo.jpg?itok=sh0zbow5" width="80px" />
+
+- [Cornell
+  University](https://cals.cornell.edu/biological-field-station-shackelton-point)
+  <img src="https://cals.cornell.edu/themes/custom/cals_subsite/images/cornell-shield.png" width="80px" />
