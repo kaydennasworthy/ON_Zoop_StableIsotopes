@@ -25,7 +25,7 @@ knitr::include_graphics("https://www.fws.gov/sites/default/files/styles/large/pu
 
 * [Cornell University](https://cals.cornell.edu/biological-field-station-shackelton-point)
 ```{r, out.width = "80px", echo = FALSE}
-knitr::include_graphics("https://cals.cornell.edu/themes/custom/cals_subsite/images/cornell-shield.png")
+knitr::include_graphics("https://brand.cornell.edu/assets/images/downloads/logos/cornell_logo_simple/cornell_logo_simple_black.svg")
 ```
 
 

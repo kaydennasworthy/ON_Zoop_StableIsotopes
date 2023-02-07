@@ -15,4 +15,4 @@
 
 - [Cornell
   University](https://cals.cornell.edu/biological-field-station-shackelton-point)
-  <img src="https://cals.cornell.edu/themes/custom/cals_subsite/images/cornell-shield.png" width="80px" />
+  <img src="https://brand.cornell.edu/assets/images/downloads/logos/cornell_logo_simple/cornell_logo_simple_black.svg" width="80px" />
