@@ -1,10 +1,15 @@
-2013 Lake Ontario CSMI Stable Isotope Dataset
-================
+---
+title: "2013 Lake Ontario CSMI Stable Isotope Dataset"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
 # This is a repository for analyzing data from 2013 Lake Ontario Cooperative Science and Monitoring Initiative (CSMI)
 
 ### This data was collected collaboratively from multiple agencies including:
-
-- USGS
-- EPA
-- OMNRF
+* USGS
+* EPA
+* OMNRF
