@@ -173,9 +173,11 @@ sculp13C
 
 ############### SAVE PLOTS TO FIGURES FOLDER ##############
 
-ggsave(filename="/figures/Mysis_Sculpin Delta15N comparison.png",
-       plot = mys_sculp)
+ggsave(filename="Mysis_Sculpin Delta15N comparison.png",
+       plot = mys_sculp,
+       path = "C:/Users/kcn33/github/ON_Zoop_StableIsotopes/figures/")
 
+ggsave(filename="Map of sample points.png",
+       plot = mapofpoints,
+       path = "C:/Users/kcn33/github/ON_Zoop_StableIsotopes/figures/")
 
-ggsave(filename="/figures/Map of points.png",
-       plot = mapofpoints)
