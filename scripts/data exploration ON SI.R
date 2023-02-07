@@ -2,6 +2,7 @@ library(tidyverse)
 library(ggpubr)
 library(rnaturalearth)
 library(rnaturalearthdata)
+library(stringr)
 
 ##### Import messy data and cut out empty rows and resave ####
 ### Will only have to do this once ###
@@ -52,32 +53,48 @@ zoops = data %>%
   filter(Group == "Zooplankton") %>%
   as.data.frame()
 
+zoops_nohemi = zoops %>%
+  filter(sampleDescription != "Hemimysis anomala") %>%
+  filter(sampleDescription != "Hemimysis anomala-adult") %>%
+  filter(sampleDescription != "Hemimysis anomala-juvenile") %>%
+  as.data.frame()
+
+
+
+
 #####
 
-
-
 ##### Plotting #####
-
-ggplot(data = data, aes(x=year))+
-  geom_bar()
-
-
-
-
-
 mysis_CxN_plot = ggplot(mysids, aes(x = delta13C, y = delta15N)) +
   geom_point()
 mysis_CxN_plot
-
-ggplot(data, aes(x = delta13C, y = delta15N, color = (sampleDescription)))+
-  geom_point()+
-  xlim(-35,-10)
 
 ggplot(data[data$sampleDescription == "POC (phyto)", ], aes(x = year, y = delta15N ))+
   geom_point()
 
 ggplot(data[data$sampleDescription == "Deepwater sculpin", ], aes(x = delta15N, y = percentN/percentC ))+
   geom_point()
+
+zooptopes = 
+  ggplot(zoops, aes(delta13C, delta15N, color = sampleDescription))+
+  geom_boxplot()
+zooptopes
+
+zooptopes_box_15N = 
+  ggplot(zoops_nohemi, aes(x = sampleDescription, y= delta15N))+
+  geom_boxplot()+
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 8))
+zooptopes_box_15N
+
+zooptopes_box_13C = 
+  ggplot(zoops_nohemi, aes(x = sampleDescription, y= delta13C))+
+  geom_boxplot()+
+scale_x_discrete(labels = function(x) str_wrap(x, width = 8))
+zooptopes_box_13C
+
+
+
+
 
 
 data %>%  
@@ -93,6 +110,9 @@ data %>%
   geom_boxplot()+
   theme(axis.text.x=element_text(angle=90, hjust=1, vjust=0.5),
         text=element_text(size=10))
+
+
+
 
 #### Mysis and sculpin/goby
 mys_sculp = 
@@ -122,10 +142,6 @@ dreissena_goby =
         text=element_text(size=10))+
   facet_grid(cols = vars(year))
 
-
-zooptopes = 
-  ggplot(zoops, aes(delta13C, delta15N, color = sampleDescription))+
-  geom_point()
 
 mysis_CxN_plot+
   ggtitle("2013 Mysis")
