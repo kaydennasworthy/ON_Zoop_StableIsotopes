@@ -28,6 +28,12 @@ knitr::include_graphics("https://www.fws.gov/sites/default/files/styles/large/pu
 knitr::include_graphics("https://brand.cornell.edu/assets/images/downloads/logos/cornell_logo_simple/cornell_logo_simple_black.svg")
 ```
 
+<br/>
+
+# This is a map of location used in the stable isotope dataset
+```{r, out.width = "720px", echo=FALSE}
+knitr::include_graphics("C:/Users/kcn33/github/ON_Zoop_StableIsotopes/figures/Map of sample points.png")
+```
 
 
 

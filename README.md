@@ -16,3 +16,9 @@
 - [Cornell
   University](https://cals.cornell.edu/biological-field-station-shackelton-point)
   <img src="https://brand.cornell.edu/assets/images/downloads/logos/cornell_logo_simple/cornell_logo_simple_black.svg" width="80px" />
+
+<br/>
+
+# This is a map of location used in the stable isotope dataset
+
+<img src="figures/Map of sample points.png" width="720px" />
