@@ -1,0 +1,151 @@
+---
+title: "USGS 2013 Isotope Data Exploration"
+author: "Kayden"
+date: "`r Sys.Date()`"
+output:
+  html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
+```
+
+```{r, include=FALSE}
+library(tidyverse)
+
+##### Import data and cut out empty rows
+# setwd("C:/Users/kcn33/Box/Summer 2022")
+# data = data.frame(read.csv("USGS_LOBS_StableIsotopeData_20210113.csv"))
+# data
+# toDelete <- seq(0, nrow(data), 2)
+# data = data[ toDelete ,]
+# # data
+# data$Group = NA
+# setwd("C:/Users/kcn33/Box/Ontario Isotopes")
+# write.csv(data, file = "LOBS Isotope Dataset 20210113.csv")
+
+setwd("C:/Users/kcn33/Box/Ontario Isotopes")
+data = read.csv(file = "LOBS Isotope Dataset 20210113.csv")
+data$X = data$X/2
+
+summary(data)
+head(data)
+unique(data$sampleDescription)
+
+mysids = data[data$sampleDescription == "Mysis diluviana",]
+mysids
+
+mysis_CxN_plot = ggplot(mysids, aes(x = delta13C, y = delta15N)) +
+  geom_point()
+
+
+
+
+ggplot(data[data$sampleDescription == "POC (phyto)", ], aes(x = year, y = delta15N ))+
+  geom_point()
+
+ggplot(data[data$sampleDescription == "Deepwater sculpin", ], aes(x = delta15N, y = percentN/percentC ))+
+  geom_point()
+
+
+data %>%  
+ # filter(sampleDescription == "Mysis diluviana" |
+ #           sampleDescription == "Deepwater sculpin" |
+ #           sampleDescription == "Calanoid copepod" |
+ #           sampleDescription == "Cyclopoid copepod" |
+ #           sampleDescription == "POC (phyto)") %>% 
+  filter(year == 2013) %>%
+  group_by(sampleDescription) %>% 
+  #summarize(total_cases = sum(cases)) %>% 
+  ggplot(aes(x = sampleDescription, y = delta15N)) +
+  geom_boxplot()+
+  theme(axis.text.x=element_text(angle=90, hjust=1, vjust=0.5),
+        text=element_text(size=10))
+
+#### Mysis and sculpin/goby
+mys_sculp = 
+  data %>%  
+  filter(sampleDescription == "Mysis diluviana" | 
+           sampleDescription == "Deepwater sculpin" |
+           sampleDescription == "Slimy sculpin" |
+           sampleDescription == "Round goby") %>%
+  group_by(sampleDescription) %>% 
+  #summarize(total_cases = sum(cases)) %>% 
+  ggplot(aes(x = sampleDescription, y = delta15N, group = sampleDescription, color = sampleDescription)) +
+  geom_boxplot()+
+  theme(axis.text.x=element_text(angle=90, hjust=1, vjust=0.5),
+        text=element_text(size=10))+
+  facet_grid(cols = vars(year))
+
+##### Dreissena and goby
+dreissena_goby = 
+  data %>%  
+  filter(Group == "Dreissena" |
+           sampleDescription == "Round goby") %>%
+  group_by(sampleDescription) %>% 
+  #summarize(total_cases = sum(cases)) %>% 
+  ggplot(aes(x = sampleDescription, y = delta13C, group = sampleDescription, color = sampleDescription)) +
+  geom_boxplot()+
+  theme(axis.text.x=element_text(angle=90, hjust=1, vjust=0.5),
+        text=element_text(size=10))+
+  facet_grid(cols = vars(year))
+
+
+zoops = data %>% 
+  filter(Group == "Zooplankton") %>%
+  as.data.frame()
+
+zooptopes = 
+  ggplot(zoops, aes(delta13C, delta15N, color = sampleDescription))+
+  geom_point()
+
+```
+
+## 2013 Lake Ontario CSMI USGS Stable Isotope Data Exploration ##
+
+
+**Number of Datapoints per year**
+```{r fig.asp = 0.8, fig.width = 9, echo = FALSE}
+ggplot(data = data, aes(x=year))+
+  geom_bar()
+
+ggplot(data, aes(x=longitude_decDeg, y=lattitude_decDeg))+
+  geom_point()
+
+
+ggplot(data = data, aes(x=delta13C, y=delta15N))+
+  geom_point(aes(color=factor(year), shape = Group))+xlim(-35,-10)
+```
+
+
+<br>
+
+**2013 Mysis diluviana **
+```{r fig.asp = 0.8, fig.width = 9, echo=FALSE}
+mysis_CxN_plot+
+  ggtitle("2013 Mysis")
+
+#ggplot(data=mysids, aes(x=percentC/percentN, y=delta13C))+
+#  geom_point()
+
+mys_sculp+ggtitle("Mysis & Sculpin")
+
+zooptopes+ggtitle("zoops")
+
+```
+
+
+```{r echo=FALSE}
+sculp13C = 
+  data %>%  
+  filter(sampleDescription == "Deepwater sculpin") %>%
+  group_by(sampleDescription) %>% 
+  #summarize(total_cases = sum(cases)) %>% 
+  ggplot(aes(x = sampleDescription, y = delta15N, group = sampleDescription, color = sampleDescription)) +
+  geom_boxplot()+
+  theme(axis.text.x=element_text(angle=90, hjust=1, vjust=0.5),
+        text=element_text(size=10))+
+  facet_grid(cols = vars(year))
+sculp13C
+
+```
