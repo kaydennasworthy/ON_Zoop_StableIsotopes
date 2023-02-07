@@ -52,27 +52,12 @@ ggplot(lakes10)+
 
 
 ##### MAPPING #####
-world_s <- ne_coastline(scale = "small", returnclass = "sf")
-class(world_s)
-class(lakesMapEnv)
-
-world_m <- ne_coastline(scale = "medium", returnclass = "sf")
-class(world_m)
-class(lakesMapEnv)
-
-
-ggplot(data = world_s)+
+mapofpoints = 
+  ggplot(data = lakes10)+
   geom_sf()+
   geom_point(data = data, aes(x = longitude_decDeg, y = lattitude_decDeg), size = 1, 
              shape = 23, fill = "darkred")+
-  coord_sf(xlim = c(-87, -70), ylim = c(41,46), expand = FALSE)
-
-
-ggplot(data = world_m)+
-  geom_sf()+
-  geom_point(data = data, aes(x = longitude_decDeg, y = lattitude_decDeg), size = 1, 
-             shape = 23, fill = "darkred")+
-  coord_sf(xlim = c(-87, -70), ylim = c(41,46), expand = FALSE)
+  coord_sf(xlim = c(-80, -75), ylim = c(42,45), expand = FALSE)
 
 #coord_sf(xlim = c-82), ylim = c(41,46), expand = FALSE)
 
@@ -180,3 +165,17 @@ sculp13C =
         text=element_text(size=10))+
   facet_grid(cols = vars(year))
 sculp13C
+
+
+
+
+
+
+############### SAVE PLOTS TO FIGURES FOLDER ##############
+
+ggsave(filename="/figures/Mysis_Sculpin Delta15N comparison.png",
+       plot = mys_sculp)
+
+
+ggsave(filename="/figures/Map of points.png",
+       plot = mapofpoints)
