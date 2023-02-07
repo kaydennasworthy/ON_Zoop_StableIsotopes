@@ -1,4 +1,3 @@
-
 library(tidyverse)
 library(ggpubr)
 library(rnaturalearth)
@@ -25,29 +24,8 @@ summary(data)
 unique(data$sampleDescription)
 
 # Load Map data
-lakes110 = ne_download(scale = 110, type = "lakes", category = "physical",
-                       returnclass = "sf")
-lakes50 = ne_download(scale = 50, type = "lakes", category = "physical",
-                       returnclass = "sf")
 lakes10 = ne_download(scale = 10, type = "lakes", category = "physical",
                       returnclass = "sf")
-class(lakes110)
-
-ggarrange(
-  
-ggplot(lakes110)+
-  geom_sf()+
-  xlim(-80,-75)+ylim(42,45)
-,
-ggplot(lakes50)+
-  geom_sf()+
-  xlim(-80,-75)+ylim(42,45)
-,
-ggplot(lakes10)+
-  geom_sf()+
-  xlim(-80,-75)+ylim(42,45)
-)
-
 
 
 
@@ -58,6 +36,8 @@ mapofpoints =
   geom_point(data = data, aes(x = longitude_decDeg, y = lattitude_decDeg), size = 1, 
              shape = 23, fill = "darkred")+
   coord_sf(xlim = c(-80, -75), ylim = c(42,45), expand = FALSE)
+
+mapofpoints
 
 #coord_sf(xlim = c-82), ylim = c(41,46), expand = FALSE)
 
