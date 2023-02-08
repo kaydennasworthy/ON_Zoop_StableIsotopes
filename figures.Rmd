@@ -93,27 +93,27 @@ zooptopes
 zooptopes_box_15N = 
   ggplot(zoops_nohemi, aes(x = sampleDescription, y= delta15N))+
   geom_boxplot()+
-  scale_x_discrete(labels = function(x) str_wrap(x, width = 8))
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 6))
 zooptopes_box_15N
 
 zooptopes_box_13C = 
   ggplot(zoops_nohemi, aes(x = sampleDescription, y= delta13C))+
   geom_boxplot()+
-scale_x_discrete(labels = function(x) str_wrap(x, width = 8))
+scale_x_discrete(labels = function(x) str_wrap(x, width = 6))
 zooptopes_box_13C
 ```
 
 # **Mysis δ^15^N by δ^13^C**
-```{r, fig.width = 10, echo = FALSE}
+```{r, fig.width = 12, echo = FALSE}
 mysis_CxN_plot
 ```
 
 # **Zooplankton δ^15^ N**
-```{r, fig.width = 10, echo = FALSE}
+```{r, fig.width = 12, echo = FALSE}
 zooptopes_box_15N
 ```
 
 # **Zooplankton δ^13^ C**
-```{r, fig.width = 10, echo = FALSE}
+```{r, fig.width = 12, echo = FALSE}
 zooptopes_box_13C
 ```
