@@ -8,3 +8,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 This is the about section
+
+```{r, width = 18, height=18, echo = FALSE}
+knitr::include_graphics("https://upload.wikimedia.org/wikipedia/commons/7/7a/ISS-36_Lake_Ontario_%28horizontal%29.jpg")
+```
