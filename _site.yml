@@ -1,6 +1,6 @@
 name: "our-website"
 navbar:
-  title: "Our Collaborative Website"
+  title: "ONTARIO 2013 CSMI WEBSITE"
   left:
     - text: "Cars"
       href: index.html
