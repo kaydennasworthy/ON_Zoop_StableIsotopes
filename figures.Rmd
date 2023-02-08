@@ -104,16 +104,16 @@ zooptopes_box_13C
 ```
 
 # **Mysis δ^15^N by δ^13^C**
-```{r, echo = FALSE}
+```{r, fig.width = 10, echo = FALSE}
 mysis_CxN_plot
 ```
 
 # **Zooplankton δ^15^ N**
-```{r, echo = FALSE}
+```{r, fig.width = 10, echo = FALSE}
 zooptopes_box_15N
 ```
 
 # **Zooplankton δ^13^ C**
-```{r, echo = FALSE}
+```{r, fig.width = 10, echo = FALSE}
 zooptopes_box_13C
 ```
