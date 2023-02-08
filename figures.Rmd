@@ -1,6 +1,5 @@
 ---
 title: "Figures"
-author: "Kayden"
 output: html_document
 ---
 
@@ -35,21 +34,21 @@ data$X = data$X/2
 summary(data)
 unique(data$sampleDescription)
 
-# Load Map data
-lakes10 = ne_download(scale = 10, type = "lakes", category = "physical",
-                      returnclass = "sf")
-
-
-
-##### MAPPING #####
-mapofpoints = 
-  ggplot(data = lakes10)+
-  geom_sf()+
-  geom_point(data = data, aes(x = longitude_decDeg, y = lattitude_decDeg), size = 1, 
-             shape = 23, fill = "darkred")+
-  coord_sf(xlim = c(-80, -75), ylim = c(42,45), expand = FALSE)
-
-mapofpoints
+# # Load Map data
+# lakes10 = ne_download(scale = 10, type = "lakes", category = "physical",
+#                       returnclass = "sf")
+# 
+# 
+# 
+# ##### MAPPING #####
+# mapofpoints = 
+#   ggplot(data = lakes10)+
+#   geom_sf()+
+#   geom_point(data = data, aes(x = longitude_decDeg, y = lattitude_decDeg), size = 1, 
+#              shape = 23, fill = "darkred")+
+#   coord_sf(xlim = c(-80, -75), ylim = c(42,45), expand = FALSE)
+# 
+# mapofpoints
 
 #coord_sf(xlim = c-82), ylim = c(41,46), expand = FALSE)
 
@@ -104,11 +103,17 @@ scale_x_discrete(labels = function(x) str_wrap(x, width = 8))
 zooptopes_box_13C
 ```
 
-
+# **Mysis δ^15^N by δ^13^C**
 ```{r, echo = FALSE}
 mysis_CxN_plot
+```
 
+# **Zooplankton δ^15^ N**
+```{r, echo = FALSE}
 zooptopes_box_15N
+```
 
+# **Zooplankton δ^13^ C**
+```{r, echo = FALSE}
 zooptopes_box_13C
 ```
