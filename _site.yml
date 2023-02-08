@@ -2,7 +2,7 @@ name: "our-website"
 navbar:
   title: "ONTARIO 2013 CSMI WEBSITE"
   left:
-    - text: "Cars"
+    - text: "Home"
       href: index.html
     - text: "About"
       href: about.html
