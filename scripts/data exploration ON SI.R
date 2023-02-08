@@ -3,6 +3,8 @@ library(ggpubr)
 library(rnaturalearth)
 library(rnaturalearthdata)
 library(stringr)
+library(ggforce)
+library(lubridate)
 
 ##### Import messy data and cut out empty rows and resave ####
 ### Will only have to do this once ###
@@ -23,6 +25,9 @@ data$X = data$X/2
 
 summary(data)
 unique(data$sampleDescription)
+
+# Edit Dates to be usable
+data$dateCollected = mdy(data$dateCollected)
 
 # Load Map data
 lakes10 = ne_download(scale = 10, type = "lakes", category = "physical",
@@ -53,10 +58,18 @@ zoops = data %>%
   filter(Group == "Zooplankton") %>%
   as.data.frame()
 
+limnos = zoops %>%
+  filter(sampleDescription == "Limnocalanus macrurus") %>%
+  as.data.frame()
+
 zoops_nohemi = zoops %>%
   filter(sampleDescription != "Hemimysis anomala") %>%
   filter(sampleDescription != "Hemimysis anomala-adult") %>%
   filter(sampleDescription != "Hemimysis anomala-juvenile") %>%
+  as.data.frame()
+
+only2013 = data %>% 
+  filter(year == 2013) %>%
   as.data.frame()
 
 
@@ -162,9 +175,54 @@ sculp13C =
   facet_grid(cols = vars(year))
 sculp13C
 
+dat = zoops_nohemi %>%
+  filter(sampleDescription == "Mysis diluviana" |
+         sampleDescription == "Limnocalanus macrurus" |
+           sampleDescription == "Bythotrephes longimanus") %>%
+  filter(year == 2013) %>%
+  as.data.frame()
+
+dat
+
+
+zoop_CxN_plot = 
+  ggplot(dat, aes(x = delta13C, y = delta15N, 
+    fill = sampleDescription, color = sampleDescription,
+    linetype = sampleDescription))+
+  geom_mark_hull(concavity = 5,expand=0,radius=0)+
+  geom_point(size = 4)#  stat_ellipse(type = "t", geom = "polygon")
+
+zoop_CxN_plot
 
 
 
+mys_15N_through_year = 
+  ggplot(mysids, aes(x = dateCollected, y = delta15N))+
+  geom_point()+
+  geom_smooth(method = "lm")+
+  stat_regline_equation(label.x = 15850, label.y = 18)+
+  stat_cor(aes(label=..rr.label..), label.x=15850, label.y=17.5)
+mys_15N_through_year
+
+mys_13C_through_year = 
+  ggplot(mysids, aes(x = dateCollected, y = delta13C))+
+  geom_point()+
+  geom_smooth(method = "lm")+
+  stat_regline_equation(label.x = 15850, label.y = -21.5)+
+  stat_cor(aes(label=..rr.label..), label.x=15850, label.y=-22)
+mys_13C_through_year
+
+
+
+lm(delta15N ~ dateCollected, mysids)
+
+
+ggplot(limnos, aes(x = dateCollected, y = delta15N))+
+  geom_point()+
+  geom_smooth(method = "lm")
+
+ggplot(only2013[only2013$sampleDescription == "Bosminidae",], aes(x = dateCollected, y = delta15N))+
+  geom_point()
 
 
 ############### SAVE PLOTS TO FIGURES FOLDER ##############
