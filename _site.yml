@@ -9,3 +9,9 @@ navbar:
     - text: "Figures"
       href: figures.html
 output_dir: "."
+output:
+  html_document:
+    theme: yeti
+    highlight: textmate
+    toc: true 
+    toc_float: true 
