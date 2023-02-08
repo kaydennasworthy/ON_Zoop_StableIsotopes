@@ -1,0 +1,114 @@
+---
+title: "Figures"
+author: "Kayden"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
+```
+
+```{r, include=FALSE}
+library(tidyverse)
+library(ggpubr)
+library(rnaturalearth)
+library(rnaturalearthdata)
+library(stringr)
+
+##### Import messy data and cut out empty rows and resave ####
+### Will only have to do this once ###
+# setwd("C:/Users/kcn33/Box/Summer 2022")
+# data = data.frame(read.csv("USGS_LOBS_StableIsotopeData_20210113.csv"))
+# data
+# toDelete <- seq(0, nrow(data), 2)
+# data = data[ toDelete ,]
+# # data
+# data$Group = NA
+# setwd("C:/Users/kcn33/Box/Ontario Isotopes")
+# write.csv(data, file = "LOBS Isotope Dataset 20210113.csv")
+
+##### Load in Data ####
+setwd("C:/Users/kcn33/github/ON_Zoop_StableIsotopes/")
+data = read.csv(file = "raw-data/LOBS Isotope Dataset 20210113.csv")
+data$X = data$X/2
+
+summary(data)
+unique(data$sampleDescription)
+
+# Load Map data
+lakes10 = ne_download(scale = 10, type = "lakes", category = "physical",
+                      returnclass = "sf")
+
+
+
+##### MAPPING #####
+mapofpoints = 
+  ggplot(data = lakes10)+
+  geom_sf()+
+  geom_point(data = data, aes(x = longitude_decDeg, y = lattitude_decDeg), size = 1, 
+             shape = 23, fill = "darkred")+
+  coord_sf(xlim = c(-80, -75), ylim = c(42,45), expand = FALSE)
+
+mapofpoints
+
+#coord_sf(xlim = c-82), ylim = c(41,46), expand = FALSE)
+
+##### Subsetting data ####
+
+mysids = data %>%
+  filter(sampleDescription == "Mysis diluviana") %>%
+  as.data.frame()
+mysids
+
+zoops = data %>% 
+  filter(Group == "Zooplankton") %>%
+  as.data.frame()
+
+zoops_nohemi = zoops %>%
+  filter(sampleDescription != "Hemimysis anomala") %>%
+  filter(sampleDescription != "Hemimysis anomala-adult") %>%
+  filter(sampleDescription != "Hemimysis anomala-juvenile") %>%
+  as.data.frame()
+
+
+
+
+#####
+
+##### Plotting #####
+mysis_CxN_plot = ggplot(mysids, aes(x = delta13C, y = delta15N)) +
+  geom_point()
+mysis_CxN_plot
+
+ggplot(data[data$sampleDescription == "POC (phyto)", ], aes(x = year, y = delta15N ))+
+  geom_point()
+
+ggplot(data[data$sampleDescription == "Deepwater sculpin", ], aes(x = delta15N, y = percentN/percentC ))+
+  geom_point()
+
+zooptopes = 
+  ggplot(zoops, aes(delta13C, delta15N, color = sampleDescription))+
+  geom_boxplot()
+zooptopes
+
+zooptopes_box_15N = 
+  ggplot(zoops_nohemi, aes(x = sampleDescription, y= delta15N))+
+  geom_boxplot()+
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 8))
+zooptopes_box_15N
+
+zooptopes_box_13C = 
+  ggplot(zoops_nohemi, aes(x = sampleDescription, y= delta13C))+
+  geom_boxplot()+
+scale_x_discrete(labels = function(x) str_wrap(x, width = 8))
+zooptopes_box_13C
+```
+
+
+```{r, echo = FALSE}
+mysis_CxN_plot
+
+zooptopes_box_15N
+
+zooptopes_box_13C
+```

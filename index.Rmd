@@ -6,3 +6,8 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+# This is a map of location used in this dataset
+```{r, echo = FALSE}
+knitr::include_graphics("C:/Users/kcn33/github/ON_Zoop_StableIsotopes/figures/Map of sample points.png")
+```
