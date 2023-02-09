@@ -17,14 +17,3 @@ knitr::opts_chunk$set(echo = TRUE)
 * [Ontario Ministry of Natural Resources and Forestry](https://www.ontario.ca/page/ministry-natural-resources-and-forestry)
 
 * [Cornell University](https://cals.cornell.edu/biological-field-station-shackelton-point)
-
-<br/>
-
-# This is a map of location used in the stable isotope dataset
-```{r, echo = FALSE}
-knitr::include_graphics("C:/Users/kcn33/github/ON_Zoop_StableIsotopes/figures/Map of sample points.png")
-```
-
-
-
-
