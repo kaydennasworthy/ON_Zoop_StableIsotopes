@@ -6,7 +6,7 @@ output: github_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-## [View this Repo's website](https://kaydennasworthy.github.io/ON_Zoop_StableIsotopes/)
+### *[view this repo's website](https://kaydennasworthy.github.io/ON_Zoop_StableIsotopes/)*
 
 
 ## This data was collected collaboratively from multiple agencies including:
