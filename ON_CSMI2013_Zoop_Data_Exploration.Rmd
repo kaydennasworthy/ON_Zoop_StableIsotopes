@@ -1,3 +1,17 @@
+---
+title: "2013 CSMI Zooplankton Stable Isotope Data Exploration"
+author: "Kayden"
+date: "`r Sys.Date()`"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+```
+
+```{r load packages, echo = FALSE}
 library(tidyverse)
 library(ggpubr)
 library(rnaturalearth)
@@ -6,7 +20,9 @@ library(stringr)
 library(ggforce)
 library(lubridate)
 library(ggthemes)
+```
 
+```{r import and clean up data, results='hide'}
 ##### Import messy data and cut out empty rows and resave ####
 ### Will only have to do this once ###
 # setwd("C:/Users/kcn33/Box/Summer 2022")
@@ -29,24 +45,6 @@ unique(data$sampleDescription)
 
 # Edit Dates to be usable
 data$dateCollected = mdy(data$dateCollected)
-
-# Load Map data
-lakes10 = ne_download(scale = 10, type = "lakes", category = "physical",
-                      returnclass = "sf")
-
-
-
-##### MAPPING #####
-mapofpoints = 
-  ggplot(data = lakes10)+
-  geom_sf()+
-  geom_point(data = data, aes(x = longitude_decDeg, y = lattitude_decDeg), size = 1, 
-             shape = 23, fill = "darkred")+
-  coord_sf(xlim = c(-80, -75), ylim = c(42,45), expand = FALSE)
-
-mapofpoints
-
-#coord_sf(xlim = c-82), ylim = c(41,46), expand = FALSE)
 
 ##### Subsetting data ####
 
@@ -82,12 +80,28 @@ dat = zoops_nohemi %>%
   as.data.frame()
 
 dat
-
-
-
-
 #####
+```
 
+```{r Create map of sample locations}
+# Load Map data
+lakes10 = ne_download(scale = 10, type = "lakes", category = "physical",
+                      returnclass = "sf")
+
+##### MAPPING #####
+mapofpoints = 
+  ggplot(data = lakes10)+
+  geom_sf()+
+  geom_point(data = data, aes(x = longitude_decDeg, y = lattitude_decDeg), size = 1, 
+             shape = 23, fill = "darkred")+
+  coord_sf(xlim = c(-80, -75), ylim = c(42,45), expand = FALSE)
+
+mapofpoints
+
+#coord_sf(xlim = c-82), ylim = c(41,46), expand = FALSE)
+```
+
+```{r Start plotting}
 ##### Plotting #####
 mysis_CxN_plot = ggplot(mysids, aes(x = delta13C, y = delta15N)) +
   geom_point()
@@ -174,19 +188,6 @@ mys_sculp+ggtitle("Mysis & Sculpin")
 
 zooptopes+ggtitle("zoops")
 
-sculp13C = 
-  data %>%  
-  filter(sampleDescription == "Deepwater sculpin") %>%
-  group_by(sampleDescription) %>% 
-  #summarize(total_cases = sum(cases)) %>% 
-  ggplot(aes(x = sampleDescription, y = delta15N, group = sampleDescription, color = sampleDescription)) +
-  geom_boxplot()+
-  theme(axis.text.x=element_text(angle=90, hjust=1, vjust=0.5),
-        text=element_text(size=10))+
-  facet_grid(cols = vars(year))
-sculp13C
-
-
 
 zoop_CxN_plot = 
   ggplot(dat, aes(x = delta13C, y = delta15N, 
@@ -201,7 +202,7 @@ zoop_CxN_plot
 
 only2013 %>%
   filter(Group == "Zooplankton") %>%
-  ggplot(, mapping = aes(x = sampleDescription, y = percentC/percentN))+
+  ggplot(., mapping = aes(x = sampleDescription, y = percentC/percentN))+
   geom_boxplot()
 
 
@@ -266,8 +267,9 @@ ggplot(limnos, aes(x = dateCollected, y = delta15N))+
 
 ggplot(only2013[only2013$sampleDescription == "Bosminidae",], aes(x = dateCollected, y = delta15N))+
   geom_point()
+```
 
-
+```{r save plots, include=FALSE}
 ############### SAVE PLOTS TO FIGURES FOLDER ##############
 
 ggsave(filename="Mysis_Sculpin Delta15N comparison.png",
@@ -277,4 +279,4 @@ ggsave(filename="Mysis_Sculpin Delta15N comparison.png",
 ggsave(filename="Map of sample points.png",
        plot = mapofpoints,
        path = "C:/Users/kcn33/github/ON_Zoop_StableIsotopes/figures/")
-
+```
