@@ -1,6 +1,6 @@
 ---
 title: "2013 Lake Ontario CSMI Stable Isotope Dataset"
-output: github_document
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
