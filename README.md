@@ -1,4 +1,4 @@
-# ON_Zoop_StableIsotopes---
+---
 title: "2013 Lake Ontario CSMI Stable Isotope Dataset"
 output: md_document
 ---
@@ -6,6 +6,7 @@ output: md_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+# Lake Ontario 2013 CSMI Stable Isotope Dataset
 ### *[view this repo's website](https://kaydennasworthy.github.io/ON_Zoop_StableIsotopes/)*
 
 
